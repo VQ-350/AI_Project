@@ -21,7 +21,7 @@ import java.util.Scanner;
  * - Algorithm for Auto mode (IF's , Random input)
  * - Twitter  
  * - GUI ( Interface ) 
- * 
+ *  
  */
 
 public class theGame {
