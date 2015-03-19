@@ -6,7 +6,7 @@ import java.util.Scanner;
  */
 
 /*
- * 			Version (1.1)
+ * 			Version (1.2)
  */
 
 
@@ -27,18 +27,18 @@ public class theGame {
 	static boolean win = false;
 	static boolean result = false;
 	static int[] A = new int [40];
-    static Scanner scanner = new Scanner(System.in);
-    
-    
+	static Scanner scanner = new Scanner(System.in);
+
+
 	public static void main(String[] args){
 		// input and output to start the game
 		startGame();
-	
+
 		// display is always used after each move
 		displayTable();
-		
+
 		//
-	
+
 		do{
 			move();
 			displayTable();
@@ -49,20 +49,20 @@ public class theGame {
 
 		System.out.println("End Of The Game");
 	}
-	
-	
+
+
 	public static void startGame(){
-		
+
 		for(int i=0;i<A.length;i++){
 			A[i]=3;
 		}
 		A[6]= 0;
 		A[13]= 0;
-		
+
 	}
 
 	public static void displayTable(){
-		
+
 		System.out.print("\n------------------------------------------\n");
 		System.out.print("\t ");
 		for(int i=5;i>=0;i--)
@@ -75,16 +75,16 @@ public class theGame {
 		for(int i=7;i<=12;i++){
 			System.out.print("[" + A[i] +"]");
 		}
-		
+
 		System.out.print("\n------------------------------------------\n");
 	}	
-	
+
 	public static void move(){
 		int value = 0;
 		System.out.print("Player 1 Enter move: ");
 		int in = scanner.nextInt();
 		// done entering command.
-		
+
 		if(in > 5 || in < 0)
 		{
 			System.out.println("ERROR: Invalid Move");
@@ -96,9 +96,11 @@ public class theGame {
 		}
 		else{
 			int k=0;
+			int i;
+			int loc = 0;
 			value = A[in];
-			for(int i=1;i<=value;i++){
-				int loc = i+in;
+			for(i=1;i<=value;i++){
+				loc = i+in;
 				A[loc]= ++A[loc];
 				if(loc>=14){
 					for(int j=value;j<=value;j++){
@@ -107,18 +109,23 @@ public class theGame {
 						k++;
 					}
 				}
-				}
+			}
 			A[in]= 0;
+			
+			if(i==++value&&loc==6){
+				displayTable();
+				move();
+			}
 		}
-		
+
 	}
-	
+
 	public static void move2(){
 		int value = 0;
 		System.out.print("Player 2 enter move: ");
 		int in = scanner.nextInt();
 		// done entering command.
-		
+
 		if(in < 7 || in > 12)
 		{
 			System.out.println("ERROR: Invalid Move");
@@ -130,9 +137,11 @@ public class theGame {
 		}
 		else{
 			int k=0;
+			int i;
+			int loc = 0;
 			value = A[in];
-			for(int i=1;i<=value;i++){
-				int loc = i+in;
+			for(i=1;i<=value;i++){
+				loc = i+in;
 				A[loc]= ++A[loc];
 				if(loc>=14){
 					for(int j=value;j<=value;j++){
@@ -141,19 +150,24 @@ public class theGame {
 						k++;
 					}
 				}
-				}
+			}
 			A[in]= 0;
+			
+			if(i==++value&&loc==13){
+				displayTable();
+				move2();
+			}
 		}		
 	}
-	
+
 	public static boolean results(){
 
-		
+
 		if((A[0]==0&&A[1]==0&&A[2]==0&&A[3]==0&&A[4]==0&&A[5]==0)||(A[7]==0&&A[8]==0&&A[9]==0&&A[10]==0&&A[11]==0&&A[12]==0)){
 			System.out.println("You won!!!!!\n");
 			result=true;
 		}
-		
+
 		return result;
 	}
 
