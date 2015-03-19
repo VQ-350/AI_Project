@@ -6,7 +6,7 @@ import java.util.Scanner;
  */
 
 /*
- * 			Version (1.2)
+ * 			Version (1.5)
  */
 
 
@@ -98,13 +98,16 @@ public class theGame {
 			int k=0;
 			int i;
 			int loc = 0;
+			int steal = 99;
 			value = A[in];
 			for(i=1;i<=value;i++){
 				loc = i+in;
+				steal = A[loc];
 				A[loc]= ++A[loc];
 				if(loc>=14){
 					for(int j=value;j<=value;j++){
 						loc = k;
+						steal = A[loc];
 						A[loc]= ++A[loc];
 						k++;
 					}
@@ -115,6 +118,39 @@ public class theGame {
 			if(i==++value&&loc==6){
 				displayTable();
 				move();
+			}
+			else if(i==value&&steal==0){
+				System.out.println("STOLEN =D");
+				if(loc==0){
+					A[6]+= A[12] + A[0];
+					A[12] = 0;
+					A[0] = 0;
+				}
+				else if(loc==1){
+					A[6]+= A[11] + A[1];
+					A[11] = 0;
+					A[1] = 0;
+				}
+				else if(loc==2){
+					A[6]+= A[10] + A[2];
+					A[10] = 0;
+					A[2] = 0;
+				}
+				else if(loc==3){
+					A[6]+= A[9] + A[3];
+					A[9] = 0;
+					A[3] = 0;
+				}
+				else if(loc==4){
+					A[6]+= A[8] + A[4];
+					A[8] = 0;
+					A[4] = 0;
+				}
+				else if(loc==5){
+					A[6]+= A[7] + A[5];
+					A[7] = 0;
+					A[5] = 0;
+				}
 			}
 		}
 
@@ -139,13 +175,16 @@ public class theGame {
 			int k=0;
 			int i;
 			int loc = 0;
+			int steal = 99;
 			value = A[in];
 			for(i=1;i<=value;i++){
 				loc = i+in;
+				steal = A[loc];
 				A[loc]= ++A[loc];
 				if(loc>=14){
 					for(int j=value;j<=value;j++){
 						loc = k;
+						steal = A[loc];
 						A[loc]= ++A[loc];
 						k++;
 					}
@@ -157,6 +196,39 @@ public class theGame {
 				displayTable();
 				move2();
 			}
+			else if(i==value&&steal==0){
+				System.out.println("STOLEN =D");
+				if(loc==12){
+					A[13]+= A[12] + A[0];
+					A[0] = 0;
+					A[12] = 0;
+				}
+				else if(loc==11){
+					A[13]+= A[11] + A[1];
+					A[1] = 0;
+					A[11] = 0;
+				}
+				else if(loc==10){
+					A[13]+= A[10] + A[2];
+					A[2] = 0;
+					A[10] = 0;
+				}
+				else if(loc==9){
+					A[13]+= A[9] + A[3];
+					A[3] = 0;
+					A[9] = 0;
+				}
+				else if(loc==8){
+					A[13]+= A[8] + A[4];
+					A[4] = 0;
+					A[8] = 0;
+				}
+				else if(loc==7){
+					A[13]+= A[7] + A[5];
+					A[5] = 0;
+					A[7] = 0;
+				}
+			}
 		}		
 	}
 
@@ -164,7 +236,7 @@ public class theGame {
 
 
 		if((A[0]==0&&A[1]==0&&A[2]==0&&A[3]==0&&A[4]==0&&A[5]==0)||(A[7]==0&&A[8]==0&&A[9]==0&&A[10]==0&&A[11]==0&&A[12]==0)){
-			System.out.println("You won!!!!!\n");
+			System.out.println("You won prashakar is the best!!!!!\n");
 			result=true;
 		}
 
