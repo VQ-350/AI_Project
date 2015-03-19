@@ -6,13 +6,12 @@ import java.util.Scanner;
  */
 
 /*
- * 			Version (1.0)
+ * 			Version (1.1)
  */
 
 
 /* NEED TO DO:
  * 
- * - Two player input
  * - Extra Match repeating for move for one player 
  * - Steal point 
  * -------------------------------------------- END OF GAME MANUAL MODE
@@ -42,6 +41,8 @@ public class theGame {
 	
 		do{
 			move();
+			displayTable();
+			move2();
 			displayTable();
 			result = results();
 		}while(result!=true);
@@ -80,11 +81,11 @@ public class theGame {
 	
 	public static void move(){
 		int value = 0;
-		System.out.print("Enter move: ");
+		System.out.print("Player 1 Enter move: ");
 		int in = scanner.nextInt();
 		// done entering command.
 		
-		if(in>12 || in<0 || in==6)
+		if(in > 5 || in < 0)
 		{
 			System.out.println("ERROR: Invalid Move");
 			move();
@@ -110,6 +111,39 @@ public class theGame {
 			A[in]= 0;
 		}
 		
+	}
+	
+	public static void move2(){
+		int value = 0;
+		System.out.print("Player 2 enter move: ");
+		int in = scanner.nextInt();
+		// done entering command.
+		
+		if(in < 7 || in > 12)
+		{
+			System.out.println("ERROR: Invalid Move");
+			move2();
+		}	
+		else if(A[in]==0){
+			System.out.println("ERROR: Empty Spot");
+			move2();
+		}
+		else{
+			int k=0;
+			value = A[in];
+			for(int i=1;i<=value;i++){
+				int loc = i+in;
+				A[loc]= ++A[loc];
+				if(loc>=14){
+					for(int j=value;j<=value;j++){
+						loc = k;
+						A[loc]= ++A[loc];
+						k++;
+					}
+				}
+				}
+			A[in]= 0;
+		}		
 	}
 	
 	public static boolean results(){
