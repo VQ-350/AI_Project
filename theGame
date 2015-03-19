@@ -1,0 +1,126 @@
+import java.util.Scanner;
+
+/*
+ * Created by Abdullah Alakeel - 3/19/2015  
+ * 
+ */
+
+/*
+ * 			Version (1.0)
+ */
+
+
+/* NEED TO DO:
+ * 
+ * - Two player input
+ * - Extra Match repeating for move for one player 
+ * - Steal point 
+ * -------------------------------------------- END OF GAME MANUAL MODE
+ * 
+ * 							(NEXT STEP)
+ * - Algorithm for Auto mode (IF's , Random input)
+ * - Twitter  
+ * - GUI ( Interface ) 
+ * 
+ */
+
+public class theGame {
+	static boolean win = false;
+	static boolean result = false;
+	static int[] A = new int [40];
+    static Scanner scanner = new Scanner(System.in);
+    
+    
+	public static void main(String[] args){
+		// input and output to start the game
+		startGame();
+	
+		// display is always used after each move
+		displayTable();
+		
+		//
+	
+		do{
+			move();
+			displayTable();
+			result = results();
+		}while(result!=true);
+
+		System.out.println("End Of The Game");
+	}
+	
+	
+	public static void startGame(){
+		
+		for(int i=0;i<A.length;i++){
+			A[i]=3;
+		}
+		A[6]= 0;
+		A[13]= 0;
+		
+	}
+
+	public static void displayTable(){
+		
+		System.out.print("\n------------------------------------------\n");
+		System.out.print("\t ");
+		for(int i=5;i>=0;i--)
+		{
+			System.out.print("[" + A[i] +"]");
+		}
+		System.out.println();
+		System.out.println("[" + A[6] + "]\t\t\t" + "\t   [" + A[13] + "]");
+		System.out.print("\t ");
+		for(int i=7;i<=12;i++){
+			System.out.print("[" + A[i] +"]");
+		}
+		
+		System.out.print("\n------------------------------------------\n");
+	}	
+	
+	public static void move(){
+		int value = 0;
+		System.out.print("Enter move: ");
+		int in = scanner.nextInt();
+		// done entering command.
+		
+		if(in>12 || in<0 || in==6)
+		{
+			System.out.println("ERROR: Invalid Move");
+			move();
+		}	
+		else if(A[in]==0){
+			System.out.println("ERROR: Empty Spot");
+			move();
+		}
+		else{
+			int k=0;
+			value = A[in];
+			for(int i=1;i<=value;i++){
+				int loc = i+in;
+				A[loc]= ++A[loc];
+				if(loc>=14){
+					for(int j=value;j<=value;j++){
+						loc = k;
+						A[loc]= ++A[loc];
+						k++;
+					}
+				}
+				}
+			A[in]= 0;
+		}
+		
+	}
+	
+	public static boolean results(){
+
+		
+		if((A[0]==0&&A[1]==0&&A[2]==0&&A[3]==0&&A[4]==0&&A[5]==0)||(A[7]==0&&A[8]==0&&A[9]==0&&A[10]==0&&A[11]==0&&A[12]==0)){
+			System.out.println("You won!!!!!\n");
+			result=true;
+		}
+		
+		return result;
+	}
+
+}
