@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -6,14 +7,14 @@ import java.util.Scanner;
  */
 
 /*
- * 			Version (1.5)
+ * 			Version (1.7)
  */
 
 
 /* NEED TO DO:
  * 
- * - Extra Match repeating for move for one player 
- * - Steal point 
+ *
+ *  
  * -------------------------------------------- END OF GAME MANUAL MODE
  * 
  * 							(NEXT STEP)
@@ -24,6 +25,7 @@ import java.util.Scanner;
  */
 
 public class theGame {
+	static String tableString = "";
 	static boolean win = false;
 	static boolean result = false;
 	static int[] A = new int [40];
@@ -40,9 +42,10 @@ public class theGame {
 		//
 
 		do{
-			move();
-			displayTable();
 			move2();
+			displayTable();
+			result = results();
+			move();
 			displayTable();
 			result = results();
 		}while(result!=true);
@@ -77,6 +80,12 @@ public class theGame {
 		}
 
 		System.out.print("\n------------------------------------------\n");
+		
+		tableString = "";
+		for(int i=0;i<=13;i++){
+			tableString += A[i] + "-";
+		}
+		System.out.println("tableString: "+ tableString + "\n");
 	}	
 
 	public static void move(){
@@ -114,43 +123,44 @@ public class theGame {
 				}
 			}
 			A[in]= 0;
-			
+
 			if(i==++value&&loc==6){
 				displayTable();
+				System.out.println("You've Extra Move =D");
 				move();
 			}
 			else if(i==value&&steal==0){
-				System.out.println("STOLEN =D");
-				if(loc==0){
+				if(loc==0&&A[12]!=0){
 					A[6]+= A[12] + A[0];
 					A[12] = 0;
 					A[0] = 0;
 				}
-				else if(loc==1){
+				else if(loc==1&&A[11]!=0){
 					A[6]+= A[11] + A[1];
 					A[11] = 0;
 					A[1] = 0;
 				}
-				else if(loc==2){
+				else if(loc==2&&A[10]!=0){
 					A[6]+= A[10] + A[2];
 					A[10] = 0;
 					A[2] = 0;
 				}
-				else if(loc==3){
+				else if(loc==3&&A[9]!=0){
 					A[6]+= A[9] + A[3];
 					A[9] = 0;
 					A[3] = 0;
 				}
-				else if(loc==4){
+				else if(loc==4&&A[8]!=0){
 					A[6]+= A[8] + A[4];
 					A[8] = 0;
 					A[4] = 0;
 				}
-				else if(loc==5){
+				else if(loc==5&&A[7]!=0){
 					A[6]+= A[7] + A[5];
 					A[7] = 0;
 					A[5] = 0;
 				}
+				System.out.println("\nSTOLEN =D");
 			}
 		}
 
@@ -191,43 +201,44 @@ public class theGame {
 				}
 			}
 			A[in]= 0;
-			
+
 			if(i==++value&&loc==13){
 				displayTable();
+				System.out.println("You've Extra Move =D\n");
 				move2();
 			}
 			else if(i==value&&steal==0){
-				System.out.println("STOLEN =D");
-				if(loc==12){
+				if(loc==12&&A[0]!=0){
 					A[13]+= A[12] + A[0];
 					A[0] = 0;
 					A[12] = 0;
 				}
-				else if(loc==11){
+				else if(loc==11&&A[1]!=0){
 					A[13]+= A[11] + A[1];
 					A[1] = 0;
 					A[11] = 0;
 				}
-				else if(loc==10){
+				else if(loc==10&&A[2]!=0){
 					A[13]+= A[10] + A[2];
 					A[2] = 0;
 					A[10] = 0;
 				}
-				else if(loc==9){
+				else if(loc==9&&A[3]!=0){
 					A[13]+= A[9] + A[3];
 					A[3] = 0;
 					A[9] = 0;
 				}
-				else if(loc==8){
+				else if(loc==8&&A[4]!=0){
 					A[13]+= A[8] + A[4];
 					A[4] = 0;
 					A[8] = 0;
 				}
-				else if(loc==7){
+				else if(loc==7&&A[5]!=0){
 					A[13]+= A[7] + A[5];
 					A[5] = 0;
 					A[7] = 0;
 				}
+				System.out.println("\nSTOLEN =D");
 			}
 		}		
 	}
@@ -235,10 +246,25 @@ public class theGame {
 	public static boolean results(){
 
 
-		if((A[0]==0&&A[1]==0&&A[2]==0&&A[3]==0&&A[4]==0&&A[5]==0)||(A[7]==0&&A[8]==0&&A[9]==0&&A[10]==0&&A[11]==0&&A[12]==0)){
-			System.out.println("You won prashakar is the best!!!!!\n");
+		if(A[0]==0&&A[1]==0&&A[2]==0&&A[3]==0&&A[4]==0&&A[5]==0){
+			System.out.println("Player 1 won !\n");
+			for(int i=7;i<=12;i++){
+				A[6] += A[i]; 
+				A[i] = 0;
+			}
 			result=true;
+			displayTable();
 		}
+		
+		else if(A[7]==0&&A[8]==0&&A[9]==0&&A[10]==0&&A[11]==0&&A[12]==0){
+				System.out.println("Player 2 won !\n");
+				for(int i=0;i<=5;i++){
+					A[13] += A[i]; 
+					A[i] = 0;
+				}
+				result=true;
+				displayTable();
+				}
 
 		return result;
 	}
