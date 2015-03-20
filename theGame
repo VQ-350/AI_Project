@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 /*
@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 
 /*
- * 			Version (1.9)
+ * 			Version (2.1)
  */
 
 
@@ -20,6 +20,7 @@ import java.util.Scanner;
  */
 
 public class theGame {
+	static int Player;
 	static String tableString = "";
 	static boolean win = false;
 	static boolean result = false;
@@ -29,36 +30,62 @@ public class theGame {
 
 	public static void main(String[] args){
 		// input and output to start the game
-		startGame();
+		iniGame(3);
 
 		// display is always used after each move
 		displayTable();
 
-		//
-
-		do{
-			move();
-			displayTable();
-			result = results();
-			move2();
-			displayTable();
-			result = results();
-		}while(result!=true);
-
-		System.out.println("End Of The Game");
+		// chose which player you want to start with
+		startGame();
+		
 	}
 
 
-	public static void startGame(){
+	public static void iniGame(int points){
 
 		for(int i=0;i<A.length;i++){
-			A[i]=3;
+			A[i]=points;
 		}
 		A[6]= 0;
 		A[13]= 0;
 
 	}
+	
+	public static void startGame(){
+		System.out.print("Enter Player #(1,2): ");
+		Player = scanner.nextInt();
+		if(Player==1)
+		{
+			do{
+				move();
+				displayTable();
+				result = results();
+				move2();
+				displayTable();
+				result = results();
+			}while(result!=true);
 
+			System.out.println("End Of The Game");
+		}
+		else if(Player==2)
+		{
+			do{
+				move2();
+				displayTable();
+				result = results();
+				move();
+				displayTable();
+				result = results();
+			}while(result!=true);
+
+			System.out.println("End Of The Game");
+		}
+		else{
+			System.out.println("ERROR: invalid input.");
+			startGame();
+		}
+	}
+	
 	public static void displayTable(){
 
 		System.out.print("\n------------------------------------------\n");
@@ -87,6 +114,7 @@ public class theGame {
 		int value = 0;
 		System.out.print("Player 1 Enter move: ");
 		int in = scanner.nextInt();
+		//int in = autoAlgo(); // input only is 0 for now 
 		// done entering command.
 
 		if(in > 5 || in < 0)
@@ -264,4 +292,26 @@ public class theGame {
 		return result;
 	}
 
+	
+	public static int autoAlgo(){
+		int algoMove = 0;
+		
+		if(Player==1){
+			//Player one Algo hereb
+/*			System.out.println("Im player one");
+			System.out.println("current table is " + tableString);
+			if(tableString.equals("3-3-3-3-3-3-0-3-3-3-3-3-3-0-"
+					))
+			{
+				System.out.println("statment done");
+				algoMove = 1;
+			}*/
+		}
+		else if(Player==2){
+			//Player two Algo here
+		}
+		
+		
+		return algoMove;
+	}
 }
