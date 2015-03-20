@@ -7,18 +7,13 @@ import java.util.Scanner;
  */
 
 /*
- * 			Version (1.7)
+ * 			Version (1.8)
  */
 
 
 /* NEED TO DO:
  * 
- *
- *  
- * -------------------------------------------- END OF GAME MANUAL MODE
- * 
- * 							(NEXT STEP)
- * - Algorithm for Auto mode (IF's , Random input)
+ * - Algorithm for Auto mode (Steal, NextTrun , Random input) 
  * - Twitter  
  * - GUI ( Interface ) 
  *  
@@ -42,10 +37,10 @@ public class theGame {
 		//
 
 		do{
-			move2();
+			move();
 			displayTable();
 			result = results();
-			move();
+			move2();
 			displayTable();
 			result = results();
 		}while(result!=true);
