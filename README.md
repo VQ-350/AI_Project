@@ -1,2 +1,3 @@
 # Read Me
-Game implemented by me Credit to me everything done by me . Mr. Abdullah Alakeel
+Game implemented for AI Class project.
+Created by Abdullah A. Alakeel
