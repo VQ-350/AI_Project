@@ -1,5 +1,8 @@
+package KALAH;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 /*
  * Created by Abdullah Alakeel - 3/19/2015  
@@ -7,7 +10,7 @@ import java.util.Scanner;
  */
 
 /*
- * 			Version (2.3)
+ * 			Version (2.4)
  */
 
 
@@ -20,19 +23,21 @@ import java.util.Scanner;
  */
 
 public class theGame {
+	static Random r = new Random();
 	static int Player;
 	static String tableString = "";
 	static boolean win = false;
 	static boolean result = false;
 	static int[] A = new int [40];
 	static Scanner scanner = new Scanner(System.in);
-
+	
 	public static void main(String[] args){
 		// input and output to start the game
 		iniGame(3);
+    	KalahGUI.gui(); 
 
 		// display is always used after each move
-		displayTable();
+		//displayTable();
 
 		// chose which player you want to start with
 		startGame();
@@ -63,6 +68,7 @@ public class theGame {
 				}
 				Player = 2;
 				move2();
+				
 				displayTable();
 				if(results() == true){
 					break;
@@ -76,6 +82,7 @@ public class theGame {
 		{
 			do{
 				move2();
+				
 				displayTable();
 				if(results() == true){
 					break;
@@ -98,7 +105,6 @@ public class theGame {
 	}
 	
 	public static void displayTable(){
-
 		System.out.print("\n------------------------------------------\n");
 		System.out.print("\t ");
 		for(int i=5;i>=0;i--)
@@ -119,25 +125,33 @@ public class theGame {
 			tableString += A[i] + "-";
 		}
 		System.out.println("tableString: "+ tableString + "\n");
+		KalahGUI.gui();
 	}	
 
 	public static void move(){
 		int value = 0;
 		System.out.print("Player 1 Enter move: ");
-		int in = scanner.nextInt();
-		//int in = autoAlgo(); // input only is 0 for now 
+		//int in = scanner.nextInt();
+		int in = autoAlgo(); // input only is 0 for now 
 		// done entering command.
 
 		if(in > 5 || in < 0)
 		{
 			System.out.println("ERROR: Invalid Move");
+			infoBox("Invalid Move","Player 1 Error");
+			KalahGUI.gui();
 			move();
+			
 		}	
 		else if(A[in]==0){
 			System.out.println("ERROR: Empty Spot");
+			infoBox("Invalid Move","Player 1 Error");
+			KalahGUI.gui();
 			move();
+			
 		}
 		else{
+			System.out.println("Move is: " +  in);
 			int k=0;
 			int i;
 			int loc = 0;
@@ -164,6 +178,8 @@ public class theGame {
 					// do nothing
 				}else{
 					System.out.println("You've Extra Move =D");
+					infoBox("Player 1 earns a free turn","Free Turn !!");
+			
 					move();
 				}
 			}
@@ -199,7 +215,9 @@ public class theGame {
 					A[5] = 0;
 				}
 				System.out.println("\nSTOLEN =D");
+				//infoBox("PLayer 1 got a steal ","Steal!!");
 			}
+			
 		}
 
 	}
@@ -207,20 +225,26 @@ public class theGame {
 	public static void move2(){
 		int value = 0;
 		System.out.print("Player 2 enter move: ");
-		int in = scanner.nextInt();
-		//int in = autoAlgo();
+		//int in = scanner.nextInt();
+		int in = autoAlgo();
 		// done entering command.
 
 		if(in < 7 || in > 12)
 		{
 			System.out.println("ERROR: Invalid Move");
+			infoBox("Invalid Move","Player 2 Error");
+			KalahGUI.gui();
 			move2();
+			
 		}	
 		else if(A[in]==0){
 			System.out.println("ERROR: Empty Spot");
+			infoBox("Invalid Move","Player 2 Error");
+			KalahGUI.gui();
 			move2();
 		}
 		else{
+			System.out.println("Move2 is: " +  in);
 			int k=0;
 			int i;
 			int loc = 0;
@@ -249,6 +273,7 @@ public class theGame {
 					else 
 					{
 						System.out.println("You've Extra Move =D");
+						infoBox("PLayer 2 earned a free move","Free Move!!");
 						move2();
 					}
 				}
@@ -283,11 +308,13 @@ public class theGame {
 					A[5] = 0;
 					A[7] = 0;
 				}
-				System.out.println("\nSTOLEN =D");
+				//System.out.println("\nSTOLEN =D");
+				//infoBox("PLayer 2 got a steal ","Steal!!");
 			}
-		}		
+			
+		}
+		
 	}
-
 	
 	public static boolean results(){
 		boolean check = false;
@@ -295,7 +322,7 @@ public class theGame {
 
 		if (A[0]==0&&A[1]==0&&A[2]==0&&A[3]==0&&A[4]==0&&A[5]==0){
 			for(int i=7;i<=12;i++){
-				A[6] += A[i]; 
+				A[13] += A[i]; 
 			}
 			result=true;
 			check =true;
@@ -303,7 +330,7 @@ public class theGame {
 
 		else if (A[7]==0&&A[8]==0&&A[9]==0&&A[10]==0&&A[11]==0&&A[12]==0){
 				for(int i=0;i<=5;i++){
-					A[13] += A[i]; 
+					A[6] += A[i]; 
 				}
 				result=true;
 				check2 = true;
@@ -314,14 +341,31 @@ public class theGame {
 				A[i] = 0;
 			}
 			displayTable();
+			if (A[6]>A[13])
+			{
 			System.out.println("Player 1 won !\n");
+			infoBox("PLayer 1 WINS !","GAME OVER !");
+			}
+			 else if (A[6]==A[13])
+			 {
+				 infoBox("DRAW !","GAME OVER !");
+			 }
 		}
 		else if(check2 == true){
 				for(int i=0;i<=5;i++){
 				A[i] = 0;
 				}
 			displayTable();
+		 if (A[6]<A[13])
+			{
 			System.out.println("Player 2 won !\n");
+			infoBox("PLayer 2 WINS !","GAME OVER !");
+			
+			}
+		 else if (A[6]==A[13])
+		 {
+			 infoBox("DRAW !","GAME OVER !");
+		 }
 			}
 		
 		return result;
@@ -332,28 +376,54 @@ public class theGame {
 		int algoMove = 0;
 		
 		try {
-		    Thread.sleep(10);    // wait 10 milliseconds is one second.
+		    Thread.sleep(1000);    // wait 10 milliseconds is one second.
 		    
 		    if(Player==1){
 		    	//Player one Algo here  [0] to [5]
-		    	
-/*		    	//  example 1 do this move 
-				algoMove = 5; // will return 5 to the move
-		    	//  example 2 read tableString equal this then do this move
-				if(tableString.equals("3-3-3-3-3-3-0-3-3-3-3-3-3-0-"))
+				while(KalahGUI.clickState() == false)
 				{
-					algoMove = 4;
-				}*/
-				
+					try{
+					    Thread.sleep(10);    // wait 10 milliseconds is one second.
+						//System.out.println("\nWaiting for move");
+						if(KalahGUI.clickState() == true){
+							break;
+						}
+					}catch(InterruptedException ex) {
+					    Thread.currentThread().interrupt();
+					}
+				}
+				{
+					KalahGUI.currentState = false;
+					algoMove = KalahGUI.V;
+				}
 
 		    }
 		
 			else if(Player==2){
 				//Player two Algo here [7] to [12]
 				
-				// example
 			//	algoMove = 12; // will return 12 to the move
-
+			//	algoMove = scanner.nextInt(); // just random inputs for testing
+				
+				while(KalahGUI.clickState() == false)
+				{
+					try{
+					    Thread.sleep(10);    // wait 10 milliseconds is one second.
+						//System.out.println("\nWaiting for move");
+						if(KalahGUI.clickState() == true){
+							break;
+						}
+					}catch(InterruptedException ex) {
+					    Thread.currentThread().interrupt();
+					}
+				}
+				{
+					KalahGUI.currentState = false;
+					algoMove = KalahGUI.V;
+				}
+				/** add new array here for auto algo **/
+				
+				
 			}
 		    
 		} catch(InterruptedException ex) {
@@ -363,4 +433,10 @@ public class theGame {
 		
 		return algoMove;
 	}
+	
+	public static void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+    }
 }
+	
